@@ -162,14 +162,6 @@ module OpenTaobao
       raise Error.new(MultiJson.encode response['error_response']) if response.has_key?('error_response')
       response
     end
-
-    # Request by post method and return result in JSON format
-    # Raise OpenTaobao::Error if returned with error_response
-    def post!(params)
-      response = post params
-      raise Error.new(MultiJson.encode response['error_response']) if response.has_key?('error_response')
-      response
-    end
   end
 end
 
