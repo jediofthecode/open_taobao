@@ -164,11 +164,6 @@ module OpenTaobao
     end
 
     # Request by post method and return result in JSON format
-    def post(params)
-      parse_result session.post('', query_hash(params).to_query).body
-    end
-
-    # Request by post method and return result in JSON format
     # Raise OpenTaobao::Error if returned with error_response
     def post!(params)
       response = post params
