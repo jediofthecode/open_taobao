@@ -136,7 +136,7 @@ module OpenTaobao
 
     # Retrun query string with signature.
     def query_string(params)
-      "?" + query_hash(params).to_query
+      "?" + query_hash(params).to_query_tb
     end
 
     # Return full url with signature.
@@ -159,6 +159,19 @@ module OpenTaobao
     # Raise OpenTaobao::Error if returned with error_response
     def get!(params)
       response = get params
+      raise Error.new(MultiJson.encode response['error_response']) if response.has_key?('error_response')
+      response
+    end
+
+    # Request by post method and return result in JSON format
+    def post(params)
+      parse_result session.post('', query_hash(params).to_query).body
+    end
+
+    # Request by post method and return result in JSON format
+    # Raise OpenTaobao::Error if returned with error_response
+    def post!(params)
+      response = post params
       raise Error.new(MultiJson.encode response['error_response']) if response.has_key?('error_response')
       response
     end
